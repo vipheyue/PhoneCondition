@@ -17,6 +17,23 @@ import java.time.Instant
 
 object SendMsg {
 	private const val TAG = "SendMsg"
+	fun sendMsgBootSuccess() {
+
+		GlobalScope.launch {
+
+			val result = withContext(Dispatchers.IO) {
+					// 使用示例
+					val url = "http://117.50.175.133:8090/2G9AxVYJcpxb3efbCcqeP7/何飞杨手机使用/"+ URLEncoder.encode("开机启动监听成功", "UTF-8")
+					val response = sendGetRequest(url)
+					response.length
+					Log.d(TAG, "发送结果:"+response)
+
+			}
+
+		}
+
+
+	}
 	fun sendTodayRecord() {
 
 		GlobalScope.launch {
@@ -27,7 +44,7 @@ object SendMsg {
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
 					val currentTime = Instant.now()
-					val sevenDaysAgo = currentTime.minusSeconds(7 * 24 * 60 * 60)
+					val sevenDaysAgo = currentTime.minusSeconds(4 * 24 * 60 * 60)
 					val timestamp = sevenDaysAgo.epochSecond*1000
 
 

@@ -42,6 +42,8 @@ class HomeViewModel : ViewModel() {
 					val timestamp = sevenDaysAgo.epochSecond*1000
 
 
+//					MyApp.appDB.screenDao().deleteAllData()
+
 					var allItem = MyApp.appDB.screenDao().getRecordByDeadline(timestamp)
 					for (screenUsageTable in allItem) {
 						if (screenUsageTable.screen_type.equals(Config.SCREEN_TYPE_ON)) {

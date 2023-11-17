@@ -38,7 +38,6 @@ class ScreenOnOffReceiver : BroadcastReceiver() {
 			GlobalScope.launch {
 				//异步执行的协程语句块
 				MyApp.appDB.screenDao().insertAll(screenUsageTable)
-
 			}
 
 		}

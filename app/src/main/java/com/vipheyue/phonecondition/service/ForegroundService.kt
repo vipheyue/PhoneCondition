@@ -17,6 +17,7 @@ import androidx.core.app.NotificationCompat
 import com.vipheyue.phonecondition.MainActivity
 import com.vipheyue.phonecondition.R
 import com.vipheyue.phonecondition.broadcast.ScreenOnOffReceiver
+import com.vipheyue.phonecondition.utils.SendMsg
 
 
 class ForegroundService : Service() {
@@ -41,13 +42,25 @@ class ForegroundService : Service() {
 		notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 		startForeground(FRONT_NOTIFY_ID, createForegroundNotification())
 		registerScreenReceiver(baseContext)
+		SendMsg.sendMsgBootSuccess()
+
 	}
 
+	override fun onDestroy() {
+
+		try {
+			stopForeground(true)
+		} catch (e: Exception) {
+			e.printStackTrace()
+		}
+		super.onDestroy()
+	}
 	/**
 	 * 熄屏注册监听
 	 */
 	lateinit var mScreenReceiver: ScreenOnOffReceiver
 	private fun registerScreenReceiver(context: Context) {
+
 		Log.d(TAG, "注册屏幕监听: ")
 		val filter = IntentFilter()
 		filter.addAction(Intent.ACTION_SCREEN_ON)

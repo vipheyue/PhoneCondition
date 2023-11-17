@@ -27,17 +27,26 @@
             android:enabled="true"
             android:exported="true"></service>
 
+
+
         <receiver
             android:name=".broadcast.BootupReceiver"
             android:enabled="true"
+            android:directBootAware="true"
             android:exported="true"
+            tools:ignore="IntentFilterExportedReceiver"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-            <intent-filter>
+            <intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.PACKAGE_RESTARTED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
+
+
         <receiver
             android:name=".broadcast.ScreenOnOffReceiver"
             android:enabled="true"
@@ -48,15 +57,27 @@
             </intent-filter>
         </receiver>
 
+
+
         <activity
             android:name=".MainActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation|keyboard"
+            android:excludeFromRecents="true"
             android:exported="true"
-            android:taskAffinity=":MainActivity"
-            android:label="@string/app_name">
+            android:screenOrientation="portrait"
+            android:taskAffinity=":splash"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            tools:ignore="TranslucentOrientation">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+
             </intent-filter>
         </activity>
     </application>

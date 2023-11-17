@@ -13,8 +13,9 @@ interface ScreenUsageDao {
 
 
 	@Query("SELECT * FROM screenusagetable WHERE timestamp > :deadlineTime  ")
-	fun getRecordByDeadline(deadlineTime: Long): List<ScreenUsageTable>
-
+	suspend fun getRecordByDeadline(deadlineTime: Long): List<ScreenUsageTable>
+	@Query("DELETE FROM screenusagetable")
+	suspend fun deleteAllData()
 	@Query("SELECT * FROM screenusagetable   ")
 	suspend fun getAllRecord(): List<ScreenUsageTable>
 
